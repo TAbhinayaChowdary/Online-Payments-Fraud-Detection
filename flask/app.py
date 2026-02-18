@@ -46,55 +46,60 @@ def predict():
          
     try:
         # Get input features from form
-        # We need to make sure we parse these correctly
-        # The form inputs: step, type, amount, oldbalanceOrg, newbalanceOrig, oldbalanceDest, newbalanceDest
         step = int(request.form['step'])
-        type_val = request.form['type'].upper() # Ensure uppercase to match dataset
+        type_val = request.form['type'].upper()
         amount = float(request.form['amount'])
-        # nameOrig = request.form['nameOrig'] # Ignored
+        # nameOrig ignored
         oldbalanceOrg = float(request.form['oldbalanceOrg'])
         newbalanceOrig = float(request.form['newbalanceOrig'])
-        # nameDest = request.form['nameDest'] # Ignored
+        # nameDest ignored
         oldbalanceDest = float(request.form['oldbalanceDest'])
         newbalanceDest = float(request.form['newbalanceDest'])
 
-        # Create DataFrame for prediction
-        # The column names must match what was used during training BEFORE get_dummies
-        # Training used: step, type, amount, oldbalanceOrg, newbalanceOrig, oldbalanceDest, newbalanceDest
-        input_data = pd.DataFrame([[step, type_val, amount, oldbalanceOrg, newbalanceOrig, oldbalanceDest, newbalanceDest]],
-                                  columns=['step', 'type', 'amount', 'oldbalanceOrg', 'newbalanceOrig', 'oldbalanceDest', 'newbalanceDest'])
-        
-        # Preprocess
-        # One-Hot Encode 'type'
-        input_data = pd.get_dummies(input_data, columns=['type'], drop_first=True)
-        
-        # Align with model columns
-        if model_cols:
-            # Get missing columns
-            # We need to ensure input_data has all columns model expects (from model_cols)
-            # And ONLY those columns, in the CORRECT ORDER
-            
-            # 1. Add missing columns with 0
-            for col in model_cols:
-                if col not in input_data.columns:
-                    input_data[col] = 0
-            
-            # 2. Select only the relevant columns in correct order
-            input_data = input_data[model_cols]
+        # Manual Label Encoding to match model training (Alphabetical: CASH_IN=0, CASH_OUT=1, DEBIT=2, PAYMENT=3, TRANSFER=4)
+        type_mapping = {
+            'CASH_IN': 0, 
+            'CASH_OUT': 1, 
+            'DEBIT': 2, 
+            'PAYMENT': 3, 
+            'TRANSFER': 4
+        }
+        # Default to PAYMENT(3) or TRANSFER(4) if unknown? Or Raise error. 
+        # For safety, let's look it up or default to 4 (TRANSFER is common for fraud).
+        type_encoded = type_mapping.get(type_val, 4) 
 
-        # Predict
+        # Create DataFrame with exact columns expected by SVC model (Label Encoded)
+        # Expected order: step, type, amount, oldbalanceOrg, newbalanceOrig, oldbalanceDest, newbalanceDest
+        feature_names = ['step', 'type', 'amount', 'oldbalanceOrg', 'newbalanceOrig', 'oldbalanceDest', 'newbalanceDest']
+        
+        input_data = pd.DataFrame([[
+            step, 
+            type_encoded, 
+            amount, 
+            oldbalanceOrg, 
+            newbalanceOrig, 
+            oldbalanceDest, 
+            newbalanceDest
+        ]], columns=feature_names)
+        
+        # Verify model loading
         if model:
-            # prediction is an array, e.g. [0] or [1]
+            print(f"Predicting with features: {feature_names}")
+            print(f"Input values: {input_data.values}")
+            
             prediction = model.predict(input_data)
-            output = "['is Fraud']" if prediction[0] == 1 else "['is not Fraud']"
+            
+            # Prediction is likely 0 or 1
+            # Check shape/type
+            pred_val = prediction[0]
+            output = "['is Fraud']" if pred_val == 1 else "['is not Fraud']"
         else:
-            output = "['Model not loaded']"
+            output = "['Model not loaded - Check server logs']"
 
-        return render_template('submit.html', prediction_text='{}'.format(output))
+        return render_template('submit.html', prediction_text=str(output))
     except Exception as e:
-        # Print error to terminal for debugging
         print(f"Prediction Error: {e}")
-        return render_template('submit.html', prediction_text='Error: {}'.format(str(e)))
+        return render_template('submit.html', prediction_text=f'Error: {str(e)}')
 
 @app.route('/predict_api', methods=['POST'])
 def predict_api():
