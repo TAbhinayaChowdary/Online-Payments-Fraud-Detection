@@ -48,4 +48,14 @@ The dataset used is the "Online Payments Fraud Detection Dataset" (e.g., from Ka
 - `isFraud`: Target variable (0 or 1)
 
 ## Screenshots
-*(Add screenshots of your Home, Predict, and Result pages here)*
+### Home Page
+<img width="1897" height="867" alt="image" src="https://github.com/user-attachments/assets/704080c0-994f-49d5-95f8-7bf2025b6911" />
+
+### Prediction Page
+<img width="1919" height="866" alt="image" src="https://github.com/user-attachments/assets/1b6f269d-d08f-4862-b2c8-fd0ad4089d4e" />
+
+### Result Page
+<img width="1918" height="867" alt="image" src="https://github.com/user-attachments/assets/4664b078-cdce-4568-b316-806a4274199b" />
+
+
+
