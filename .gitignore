@@ -1,0 +1,12 @@
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.ipynb_checkpoints/
+.DS_Store
+data/
+*.csv
+.env
+venv/
+env/
+flask/payments_old.pkl

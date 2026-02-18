@@ -1,0 +1,226 @@
+/* Global Styles */
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;500;700&display=swap');
+
+body {
+    font-family: 'Roboto Mono', monospace;
+    margin: 0;
+    padding: 0;
+    color: #ffffff;
+    min-height: 100vh;
+    box-sizing: border-box;
+    background-color: #1a1f3c;
+    /* Fallback */
+}
+
+/* Backgrounds */
+.bg-image {
+    background-image: url('../images/image.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+/* Ensure overlay is sufficient for text readability, but not too dark to hide image */
+.bg-image::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Reduced opacity to let more of the image shine through, or tweaked for contrast based on screenshot observation */
+    background: rgba(15, 20, 50, 0.4);
+    z-index: -1;
+}
+
+.bg-gradient {
+    /* Slightly lighter/more vibrant gradient to match the card blue */
+    background: linear-gradient(135deg, #3a4ab5 0%, #1f2555 100%);
+}
+
+/* Navbar */
+.navbar {
+    position: absolute;
+    top: 30px;
+    right: 50px;
+    display: flex;
+    gap: 20px;
+    z-index: 100;
+}
+
+.nav-btn {
+    background: rgba(255, 255, 255, 0.1);
+    /* Frosted glass look */
+    color: #ffffff;
+    /* White text */
+    padding: 10px 25px;
+    /* Compact padding */
+    text-decoration: none;
+    border-radius: 25px;
+    /* Pill shape */
+    font-weight: 600;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(8px);
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+}
+
+.nav-btn:hover {
+    background: #00d2ff;
+    color: #000;
+    border-color: #00d2ff;
+    transform: translateY(-2px);
+    box-shadow: 0 0 15px rgba(0, 210, 255, 0.4);
+}
+
+/* Content Container (Shared) */
+.container {
+    max-width: 900px;
+    margin: 150px auto 50px;
+    /* Centered vertically somewhat */
+    padding: 40px;
+    text-align: center;
+}
+
+h1 {
+    font-size: 3.5rem;
+    font-weight: 800;
+    /* Extra bold */
+    margin-bottom: 20px;
+    /* Use solid cyan or gradient text depending on contrast. 
+       Screenshot shows solid blue/cyan text on dark background is readable. */
+    color: #00d2ff;
+    /*text-shadow: 0px 4px 15px rgba(0, 0, 0, 0.5);
+    /* Strong shadow for legibility */
+    line-height: 1.2;
+}
+
+/* Home Content Box */
+.home-content p.description {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #e0e6ed;
+    /* Light gray text */
+    text-align: justify;
+    /* Dark glass container */
+    background: rgba(105, 105, 105, 0.085);
+    backdrop-filter: blur(12px);
+    padding: 40px;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+}
+
+/* Result Page Specifics */
+.result-container {
+    max-width: 700px;
+    /* Slightly narrower for focus */
+    margin: 180px auto;
+    padding: 50px;
+    /* Darker glass for high contrast on result text */
+    background: rgba(105, 105, 105, 0.085);
+    backdrop-filter: blur(15px);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
+    /* Deep shadow */
+    text-align: center;
+    /* Center the result usually looks better, but left requested previously? Screenshot 3 shows left aligned text being hard to read. Center is safer. */
+    text-align: center;
+    /* Sticking to request */
+}
+
+/* Fix visibility of Result Text */
+.prediction-text {
+    font-size: 1.5rem;
+    color: #b3c7ff;
+    /* Lighter blue-white for the label text */
+    margin-top: 10px;
+    font-weight: 500;
+}
+
+/* The actual result variable usually needs to pop */
+.prediction-text strong,
+.prediction-result {
+    color: #00d2ff;
+    font-weight: 700;
+}
+
+
+/* Form Styles (Predict Page) */
+.form-container {
+    max-width: 500px;
+    margin: 80px auto;
+    padding: 40px;
+    background: rgba(0, 0, 0, 0.4);
+    /* Dark glass */
+    backdrop-filter: blur(15px);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #00d2ff;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+input[type="text"],
+input[type="number"] {
+    width: 100%;
+    padding: 12px 15px;
+    background: rgba(255, 255, 255, 0.05);
+    /* Very transparent white */
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+    color: #ffffff;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+input:focus {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: #00d2ff;
+    box-shadow: 0 0 12px rgba(0, 210, 255, 0.3);
+    outline: none;
+}
+
+::placeholder {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+button.submit-btn {
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(135deg, #00d2ff 0%, #007aff 100%);
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-top: 10px;
+    box-shadow: 0 4px 15px rgba(0, 122, 255, 0.3);
+}
+
+button.submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 122, 255, 0.5);
+    background: linear-gradient(135deg, #33dcff 0%, #3395ff 100%);
+}

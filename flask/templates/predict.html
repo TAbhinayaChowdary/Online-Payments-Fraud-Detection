@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Predict Fraud</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body class="bg-gradient">
+    <!-- Navbar -->
+    <div class="navbar">
+        <a href="/" class="nav-btn">Home</a>
+        <a href="/predict" class="nav-btn">Predict</a>
+    </div>
+
+    <!-- Form Content -->
+    <div class="form-container">
+        <h1>Online Payments Fraud Detection</h1>
+        <form action="/predict" method="post">
+            <div class="form-group">
+                <label for="step">Step</label>
+                <input type="number" id="step" name="step"
+                    placeholder="step: represents a unit of time where 1 step equals 1 hour" required>
+            </div>
+
+            <div class="form-group">
+                <label for="type">Type</label>
+                <input type="text" id="type" name="type" placeholder="type of online transaction (e.g. PAYMENT)"
+                    required>
+            </div>
+
+            <div class="form-group">
+                <label for="amount">Amount</label>
+                <input type="number" step="0.01" id="amount" name="amount" placeholder="the amount of the transaction"
+                    required>
+            </div>
+
+            <div class="form-group">
+                <label for="oldbalanceOrg">OldbalanceOrg</label>
+                <input type="number" step="0.01" id="oldbalanceOrg" name="oldbalanceOrg"
+                    placeholder="balance before the transaction" required>
+            </div>
+
+            <div class="form-group">
+                <label for="newbalanceOrig">NewbalanceOrig</label>
+                <input type="number" step="0.01" id="newbalanceOrig" name="newbalanceOrig"
+                    placeholder="balance after the transaction" required>
+            </div>
+
+            <div class="form-group">
+                <label for="oldbalanceDest">OldbalanceDest</label>
+                <input type="number" step="0.01" id="oldbalanceDest" name="oldbalanceDest"
+                    placeholder="initial balance of recipient before the transaction" required>
+            </div>
+
+            <div class="form-group">
+                <label for="newbalanceDest">NewbalanceDest</label>
+                <input type="number" step="0.01" id="newbalanceDest" name="newbalanceDest"
+                    placeholder="the new balance of recipient after the transaction" required>
+            </div>
+
+            <button type="submit" class="submit-btn">Size</button>
+            <!-- Note: The button says "Size"? Or "Submit"? In screenshot usually Submit. I'll use Submit but styled like screenshot might imply? No, standard Submit is better. The user just showed inputs. I'll stick to 'Predict' or 'Submit'. -->
+            <!-- Actually, looking at screenshot 2 (predict.html), there is NO button visible at the bottom, just inputs. But user says "click on submit button from left bottom corner". -->
+            <!-- Wait, "Size"? No, maybe "Submit". I'll label it "Submit". -->
+        </form>
+    </div>
+</body>
+
+</html>

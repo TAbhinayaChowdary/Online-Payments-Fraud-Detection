@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction Result</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        /* Specific overrides for submit page to match the exact alignment */
+        .result-container {
+            text-align: center;
+            /* Aligned left usually for the text in the screenshot */
+            max-width: 800px;
+            margin: 100px auto;
+            padding: 20px;
+        }
+
+        .prediction-text {
+            font-size: 1.2rem;
+            color: #ffffff;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+
+<body class="bg-image">
+    <!-- Navbar -->
+    <div class="navbar">
+        <a href="/" class="nav-btn">Home</a>
+        <a href="/predict" class="nav-btn">Predict</a>
+    </div>
+
+    <!-- Result Content -->
+    <div class="container result-container">
+        <h1>Online Payments Fraud Detection</h1>
+
+        <p class="prediction-text">
+            The predicted fraud for the online payment is {{ prediction_text }}
+        </p>
+
+    </div>
+</body>
+
+</html>
